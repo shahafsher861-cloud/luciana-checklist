@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <title>Luciana · טופס פתיחת משמרת</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f8f5f0;
+        color: #1a1612;
+      }
+      .topbar {
+        background: #ffffff;
+        border-bottom: 1px solid #e8e2d8;
+        padding: 20px 24px 0;
+      }
+      .topbar-inner {
+        max-width: 480px;
+        margin: 0 auto;
+      }
+      .topbar-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 16px;
+      }
+      .brand-title {
+        font-family: Georgia, serif;
+        font-size: 1.3rem;
+        letter-spacing: 0.18em;
+      }
+      .brand-sub {
+        font-size: 0.52rem;
+        letter-spacing: 0.3em;
+        color: #6b6158;
+        margin-top: 4px;
+      }
+      .date-main {
+        font-size: 0.72rem;
+        color: #6b6158;
+        text-align: left;
+      }
+      .date-sub {
+        font-size: 0.68rem;
+        color: #b0a898;
+        margin-top: 2px;
+        text-align: left;
+      }
+      .progress-wrap {
+        padding-bottom: 14px;
+      }
+      .progress-head {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+      }
+      .progress-label {
+        font-size: 0.65rem;
+        color: #6b6158;
+        letter-spacing: 0.1em;
+      }
+      .progress-value {
+        font-size: 0.65rem;
+      }
+      .progress-bar {
+        height: 2px;
+        background: #f2ede6;
+        border-radius: 1px;
+      }
+      .progress-bar-inner {
+        height: 100%;
+        background: #b8973e;
+        border-radius: 1px;
+        transition: width 0.2s ease;
+      }
+
+      .page {
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 28px 18px 56px;
+      }
+      .section {
+        margin-bottom: 18px;
+      }
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .section-label {
+        font-size: 0.62rem;
+        letter-spacing: 0.2em;
+        color: #6b6158;
+      }
+      .section-right {
+        font-size: 0.72rem;
+        color: #b8973e;
+      }
+      .divider {
+        height: 1px;
+        background: #e8e2d8;
+        margin: 20px 0;
+      }
+
+      .field {
+        width: 100%;
+        box-sizing: border-box;
+        border: none;
+        border-bottom: 1px solid #e8e2d8;
+        border-radius: 0;
+        padding: 10px 0;
+        font-size: 0.88rem;
+        background: transparent;
+        color: #1a1612;
+        outline: none;
+        margin-bottom: 12px;
+        display: block;
+      }
+      .field::placeholder {
+        color: #b0a898;
+      }
+      select.field {
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+
+      .task-row {
+        border-bottom: 1px solid #f2ede6;
+        padding-bottom: 14px;
+        margin-bottom: 14px;
+      }
+      .task-main {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        cursor: pointer;
+      }
+      .check-box {
+        margin-top: 2px;
+        flex-shrink: 0;
+        width: 16px;
+        height: 16px;
+        border: 1px solid #ccc5b8;
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+      }
+      .task-text {
+        font-size: 0.84rem;
+        line-height: 1.6;
+        flex: 1;
+      }
+      .task-text.done {
+        color: #c8bfae;
+        text-decoration: line-through;
+      }
+
+      .radio-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+      .radio-pill {
+        flex: 1;
+        text-align: center;
+        padding: 9px 0;
+        font-size: 0.76rem;
+        cursor: pointer;
+        border-radius: 2px;
+        border: 1px solid #e8e2d8;
+        color: #6b6158;
+      }
+      .radio-pill.active {
+        border-color: #b8973e;
+        color: #b8973e;
+        background: #fdf8ef;
+      }
+
+      textarea.field {
+        height: 60px;
+        resize: none;
+        line-height: 1.6;
+        margin-bottom: 0;
+      }
+
+      .btn-main {
+        width: 100%;
+        background: #1a1612;
+        color: #ffffff;
+        border: none;
+        border-radius: 3px;
+        padding: 15px;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      .btn-caption {
+        text-align: center;
+        margin-top: 9px;
+        font-size: 0.68rem;
+        color: #c8bfae;
+        letter-spacing: 0.08em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-row">
+          <div>
+            <div class="brand-title">LUCIANA</div>
+            <div class="brand-sub">ITALIAN HOUSE</div>
+          </div>
+          <div>
+            <div class="date-main" id="dateLabel"></div>
+            <div class="date-sub" id="dayLabel"></div>
+          </div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-head">
+            <span class="progress-label">OPENING</span>
+            <span class="progress-value" id="progressPct">0%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-bar-inner" id="progressBar" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page">
+      <!-- STAFF -->
+      <div class="section">
+        <div class="section-head">
+          <span class="section-label">STAFF</span>
+        </div>
+        <input id="name" class="field" placeholder="שם מלא" />
+        <select id="role" class="field">
+          <option value="">תפקיד</option>
+          <option>מנהלת משמרת</option>
+          <option>אחמשית</option>
+          <option>מלצר/ית</option>
+          <option>עוזר שף</option>
+          <option>ברמן/ית</option>
+        </select>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- OPENING CHECKLIST -->
+      <div class="section">
+        <div class="section-head">
+          <span class="section-label">OPENING CHECKLIST</span>
+          <span class="section-right"><span id="doneCount">0</span> / <span id="totalCount">0</span></span>
+        </div>
+
+        <div id="tasksContainer"></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- סגירה של אתמול -->
+      <div class="section">
+        <div class="section-head">
+          <span class="section-label">סגירה של אתמול</span>
+        </div>
+        <div style="font-size:0.82rem;color:#6b6158;margin-bottom:10px;">
+          האם היו בעיות בסגירה?
+        </div>
+        <div class="radio-row">
+          <div class="radio-pill" id="closingNone">לא היו בעיות</div>
+          <div class="radio-pill" id="closingYes">כן, היו בעיות</div>
+        </div>
+        <textarea id="closingDetail" class="field" placeholder="תארי מה קרה..." style="display:none;"></textarea>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- הצעות לשיפור -->
+      <div class="section">
+        <div class="section-head">
+          <span class="section-label">הצעות לשיפור</span>
+        </div>
+        <textarea id="suggestions" class="field" placeholder="רעיון או משהו שיכול לעבוד טוב יותר..."></textarea>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- NOTES -->
+      <div class="section">
+        <div class="section-head">
+          <span class="section-label">NOTES</span>
+        </div>
+        <textarea id="notes" class="field" placeholder="הערות, תקלות, חריגות..."></textarea>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SEND BUTTON -->
+      <button class="btn-main" id="sendBtn">
+        שלח אליי בוואטסאפ
+      </button>
+      <div class="btn-caption">
+        ההודעה תיפתח מוכנה לשליחה
+      </div>
+    </div>
+
+    <script>
+      // -----------------------
+      // CONFIG
+      // -----------------------
+      const PHONE = "972558855688";
+
+      const TASKS = [
+        "דירוגים בוולט (להזמין רוטב פיצה) ולקחת או להחזיר מהקופה ולרשום לי",
+        "לצלם דלת הזזה + עריכות + פוליש + זכוכיות בגלריה ולרשום בקבוצת אחמשים חוסרים מטבח/בר",
+        "לצלם שירותים (מגבות מלאות ונקי)",
+        "מוזיקה (פלייליסט deephouse chill / morning chill) ואור (צריך להיות על בין ערביים)",
+        "09:00 פותחת את המסעדה",
+        "בריף מסודר למלצרים של הבוקר אוזניות לכולם",
+        "מלאים עם המטבח + הבר",
+        "עריכה על הבר + כוסות יין",
+        "הדלקת מזגנים בחוץ",
+        "בודקת את המארחת על שיחות שלא נענו אם היא חזרה לכולם + שיחות פתוחות בוואצפ",
+        "לפתוח דלת הכניסה (מפתח גדול)",
+        "לפתוח דלת הזזה + ניקוי ספרי נייר על הדלת",
+        "עריכה של המקום לפי סקיצה מסודרת",
+      ];
+
+      // -----------------------
+      // DATE + DAY
+      // -----------------------
+      (function initDate() {
+        const now = new Date();
+        const days = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
+        document.getElementById("dateLabel").textContent = now.toLocaleDateString("he-IL");
+        document.getElementById("dayLabel").textContent = "יום " + days[now.getDay()];
+      })();
+
+      // -----------------------
+      // TASKS RENDER
+      // -----------------------
+      const tasksContainer = document.getElementById("tasksContainer");
+      const doneCountEl = document.getElementById("doneCount");
+      const totalCountEl = document.getElementById("totalCount");
+      const progressPctEl = document.getElementById("progressPct");
+      const progressBar = document.getElementById("progressBar");
+
+      const checks = {};
+
+      function renderTasks() {
+        totalCountEl.textContent = TASKS.length;
+        tasksContainer.innerHTML = "";
+        TASKS.forEach((text, index) => {
+          const row = document.createElement("div");
+          row.className = "task-row";
+
+          const main = document.createElement("div");
+          main.className = "task-main";
+
+          const box = document.createElement("div");
+          box.className = "check-box";
+          box.dataset.index = index;
+
+          const span = document.createElement("span");
+          span.className = "task-text";
+          span.textContent = text;
+          span.dataset.index = index;
+
+          main.appendChild(box);
+          main.appendChild(span);
+          row.appendChild(main);
+          tasksContainer.appendChild(row);
+
+          main.addEventListener("click", () => {
+            const i = index;
+            checks[i] = !checks[i];
+            updateTasksUI();
+          });
+        });
+
+        updateTasksUI();
+      }
+
+      function updateTasksUI() {
+        let done = 0;
+        TASKS.forEach((_, index) => {
+          if (checks[index]) done++;
+        });
+
+        doneCountEl.textContent = done;
+        const pct = Math.round((done / TASKS.length) * 100);
+        progressPctEl.textContent = pct + "%";
+        progressBar.style.width = pct + "%";
+        progressBar.style.background = pct === 100 ? "#4a7c59" : "#b8973e";
+
+        // Update each row
+        const boxes = document.querySelectorAll(".check-box");
+        const texts = document.querySelectorAll(".task-text");
+        boxes.forEach((box) => {
+          const i = Number(box.dataset.index);
+          box.textContent = checks[i] ? "✓" : "";
+          box.style.borderColor = checks[i] ? "#b8973e" : "#ccc5b8";
+          box.style.background = checks[i] ? "#b8973e" : "transparent";
+          box.style.color = checks[i] ? "#ffffff" : "#1a1612";
+        });
+        texts.forEach((span) => {
+          const i = Number(span.dataset.index);
+          span.classList.toggle("done", !!checks[i]);
+        });
+      }
+
+      renderTasks();
+
+      // -----------------------
+      // CLOSING ISSUE RADIO
+      // -----------------------
+      let closingIssue = "";
+      const closingNone = document.getElementById("closingNone");
+      const closingYes = document.getElementById("closingYes");
+      const closingDetail = document.getElementById("closingDetail");
+
+      function setClosingIssue(value) {
+        closingIssue = value;
+        closingNone.classList.toggle("active", value === "none");
+        closingYes.classList.toggle("active", value === "yes");
+        closingDetail.style.display = value === "yes" ? "block" : "none";
+      }
+
+      closingNone.addEventListener("click", () => setClosingIssue("none"));
+      closingYes.addEventListener("click", () => setClosingIssue("yes"));
+
+      // -----------------------
+      // SEND TO WHATSAPP
+      // -----------------------
+      document.getElementById("sendBtn").addEventListener("click", () => {
+        const name = document.getElementById("name").value.trim();
+        const role = document.getElementById("role").value;
+        const suggestions = document.getElementById("suggestions").value.trim();
+        const notes = document.getElementById("notes").value.trim();
+        const closingText = closingDetail.value.trim();
+
+        if (!name) {
+          alert("יש להזין שם");
+          return;
+        }
+        if (!role) {
+          alert("יש לבחור תפקיד");
+          return;
+        }
+
+        const now = new Date();
+        const time = now.toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit" });
+        const date = now.toLocaleDateString("he-IL");
+
+        let done = 0;
+        const notDoneList = [];
+        TASKS.forEach((text, index) => {
+          if (checks[index]) {
+            done++;
+          } else {
+            notDoneList.push("• " + text);
+          }
+        });
+
+        const lines = [];
+        lines.push("✅ דיווח פתיחה — Luciana");
+        lines.push(name + " · " + role + " · " + date + " " + time);
+        lines.push("");
+
+        if (done === TASKS.length) {
+          lines.push("כל " + TASKS.length + " המשימות הושלמו ✓");
+        } else {
+          lines.push(done + "/" + TASKS.length + " משימות הושלמו");
+          lines.push("");
+          lines.push("לא בוצע:");
+          lines.push(notDoneList.join("\n"));
+        }
+
+        if (closingIssue === "yes" && closingText) {
+          lines.push("");
+          lines.push("⚠️ בעיות אתמול:");
+          lines.push(closingText);
+        }
+
+        if (suggestions) {
+          lines.push("");
+          lines.push("💡 הצעות:");
+          lines.push(suggestions);
+        }
+
+        if (notes) {
+          lines.push("");
+          lines.push("📝 הערות:");
+          lines.push(notes);
+        }
+
+        const msg = lines.join("\n");
+        const url = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
+        window.open(url, "_blank");
+      });
+    </script>
+  </body>
+</html>
