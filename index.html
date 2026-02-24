@@ -1,32 +1,184 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luciana - צ'ק ליסט פתיחה</title>
     <style>
-        body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #fdfbf7; color: #4a4238; }
-        .container { max-width: 500px; margin: 0 auto; background: #fff; min-height: 100vh; display: flex; flex-direction: column; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
-        .header { padding: 30px 20px; text-align: center; border-bottom: 1px solid #eee; background: #fff; }
-        .brand-title { font-family: Georgia, serif; font-size: 1.8rem; letter-spacing: 2px; color: #1a1a1a; margin: 0; }
-        .brand-sub { font-size: 0.7rem; letter-spacing: 4px; color: #8e8477; margin-top: 5px; text-transform: uppercase; }
-        .date-info { margin-top: 15px; font-size: 0.9rem; color: #6b6158; }
-        .progress-section { padding: 20px; background: #faf8f5; border-bottom: 1px solid #eee; }
-        .progress-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: #8e8477; margin-bottom: 8px; }
-        .progress-bg { height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
-        .progress-fill { height: 100%; background: #b8973e; width: 0%; transition: width 0.3s ease; }
-        .checklist { padding: 10px 0; flex-grow: 1; }
-        .category { background: #fdfbf7; padding: 10px 20px; font-size: 0.75rem; font-weight: bold; color: #b8973e; letter-spacing: 1px; border-top: 1px solid #f0ede9; border-bottom: 1px solid #f0ede9; margin-top: 10px; }
-        .task-item { display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f5f2ee; cursor: pointer; transition: background 0.2s; }
-        .task-item:active { background: #faf8f5; }
-        .checkbox { width: 22px; height: 22px; border: 2px solid #dcd3c5; border-radius: 6px; margin-left: 15px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
-        .checkbox.checked { background: #b8973e; border-color: #b8973e; }
-        .checkbox.checked::after { content: '✓'; color: #fff; font-size: 14px; }
-        .task-text { font-size: 1rem; flex-grow: 1; line-height: 1.4; }
-        .task-text.done { color: #b0a898; text-decoration: line-through; }
-        .footer { padding: 20px; background: #fff; border-top: 1px solid #eee; position: sticky; bottom: 0; }
-        .btn-send { background: #b8973e; color: #fff; border: none; width: 100%; padding: 16px; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 12px rgba(184, 151, 62, 0.2); }
-        .btn-send:disabled { background: #dcd3c5; cursor: not-allowed; box-shadow: none; }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #fdfbf7;
+            color: #4a4238;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        }
+        .header {
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            background: #fff;
+        }
+        .brand-title {
+            font-family: Georgia, serif;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            color: #1a1a1a;
+            margin: 0;
+        }
+        .brand-sub {
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            color: #8e8477;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+        .date-info {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #6b6158;
+        }
+        .progress-section {
+            padding: 20px;
+            background: #faf8f5;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #8e8477;
+            margin-bottom: 8px;
+        }
+        .progress-bg {
+            height: 6px;
+            background: #eee;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #b8973e;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .form-section {
+            padding: 20px;
+            border-bottom: 1px solid #f5f2ee;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: #8e8477;
+            margin-bottom: 5px;
+        }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dcd3c5;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            background: #fff;
+            color: #4a4238;
+        }
+        .checklist {
+            padding: 10px 0;
+            flex-grow: 1;
+        }
+        .category {
+            background: #fdfbf7;
+            padding: 10px 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #b8973e;
+            letter-spacing: 1px;
+            border-top: 1px solid #f0ede9;
+            border-bottom: 1px solid #f0ede9;
+            margin-top: 10px;
+        }
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #f5f2ee;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .task-item:active {
+            background: #faf8f5;
+        }
+        .checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid #dcd3c5;
+            border-radius: 6px;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .checkbox.checked {
+            background: #b8973e;
+            border-color: #b8973e;
+        }
+        .checkbox.checked::after {
+            content: '✓';
+            color: #fff;
+            font-size: 14px;
+        }
+        .task-text {
+            font-size: 1rem;
+            flex-grow: 1;
+            line-height: 1.4;
+        }
+        .task-text.done {
+            color: #b0a898;
+            text-decoration: line-through;
+        }
+        .footer {
+            padding: 20px;
+            background: #fff;
+            border-top: 1px solid #eee;
+            position: sticky;
+            bottom: 0;
+        }
+        .btn-send {
+            background: #b8973e;
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(184, 151, 62, 0.2);
+        }
+        .btn-send:disabled {
+            background: #dcd3c5;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
     </style>
 </head>
 <body>
@@ -36,6 +188,7 @@
             <div class="brand-sub">Beersheba • Restaurant</div>
             <div id="displayDate" class="date-info"></div>
         </div>
+
         <div class="progress-section">
             <div class="progress-label">
                 <span>התקדמות ביצוע</span>
@@ -45,7 +198,37 @@
                 <div id="progressBar" class="progress-fill"></div>
             </div>
         </div>
+
+        <div class="form-section">
+            <div class="input-group">
+                <label>שם העובד/ת</label>
+                <input type="text" id="empName" placeholder="הכנס שם מלא">
+            </div>
+            <div class="input-group">
+                <label>תפקיד</label>
+                <select id="empRole">
+                    <option value="">בחר תפקיד</option>
+                    <option value="אחמ״ש">אחמ״ש</option>
+                    <option value="מלצר">מלצר</option>
+                    <option value="ברמן">ברמן</option>
+                    <option value="מארחת">מארחת</option>
+                </select>
+            </div>
+        </div>
+
         <div id="checklistContent" class="checklist"></div>
+
+        <div class="form-section">
+            <div class="input-group">
+                <label>בעיות מהסגירה של אתמול?</label>
+                <textarea id="closingIssues" rows="2" placeholder="פרט כאן אם היו בעיות..."></textarea>
+            </div>
+            <div class="input-group">
+                <label>הערות / הצעות לשיפור?</label>
+                <textarea id="suggestions" rows="2" placeholder="משהו נוסף שחשוב לדעת?"></textarea>
+            </div>
+        </div>
+
         <div class="footer">
             <button id="sendBtn" class="btn-send" onclick="sendReport()" disabled>
                 <span>שלח דוח פתיחה לווצאפ</span>
@@ -54,105 +237,137 @@
     </div>
 
     <script>
-        (function() {
-            var tasks = [
-                { category: "ניקיון וארגון", items: ["ניקיון רחבת הכניסה והמארחת", "שטיפת רצפה ובדיקת ניקיון כללית", "סידור שולחנות וכיסאות", "ניקיון ובדיקת שירותים (נייר, סבון, ריח)"] },
-                { category: "עמדות שירות", items: ["מילוי סכו\"ם ומפיות בעמדות", "הכנת קנקני מים ומלחיות", "בדיקת תקינות טאבלטים/מסופונים", "סידור תפריטים נקיים"] },
-                { category: "בר ושתייה", items: ["בדיקת מלאי שתייה קלה ובירות", "ניקיון עמדת הקפה והבר", "הכנת פירות לקישוט (לימון וכו')", "מילוי קרח"] }
-            ];
-
-            var flatTasks = [];
-            for (var i = 0; i < tasks.length; i++) {
-                for (var j = 0; j < tasks[i].items.length; j++) {
-                    flatTasks.push({
-                        category: tasks[i].category,
-                        text: tasks[i].items[j],
-                        done: false
-                    });
-                }
+        const tasks = [
+            {
+                category: "ניקיון וארגון",
+                items: [
+                    "ניקיון רחבת הכניסה והמארחת",
+                    "שטיפת רצפה ובדיקת ניקיון כללית",
+                    "סידור שולחנות וכיסאות",
+                    "ניקיון ובדיקת שירותים (נייר, סבון, ריח)",
+                    "ניקיון מזרקה והפעלתה"
+                ]
+            },
+            {
+                category: "עמדות שירות",
+                items: [
+                    "מילוי סכו\"ם ומפיות בעמדות",
+                    "הכנת קנקני מים ומלחיות",
+                    "בדיקת תקינות טאבלטים/מסופונים",
+                    "סידור תפריטים נקיים"
+                ]
+            },
+            {
+                category: "בר ושתייה",
+                items: [
+                    "בדיקת מלאי שתייה קלה ובירות",
+                    "ניקיון עמדת הקפה והבר",
+                    "הכנת פירות לקישוט (לימון וכו')",
+                    "מילוי קרח"
+                ]
             }
+        ];
 
-            var listDiv = document.getElementById('checklistContent');
-            var progressBar = document.getElementById('progressBar');
-            var progressText = document.getElementById('progressText');
-            var sendBtn = document.getElementById('sendBtn');
-            var displayDate = document.getElementById('displayDate');
+        let flatTasks = [];
+        tasks.forEach(cat => {
+            cat.items.forEach(text => {
+                flatTasks.push({ category: cat.category, text: text, done: false });
+            });
+        });
 
-            if (displayDate) {
-                displayDate.textContent = new Date().toLocaleDateString('he-IL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            }
+        const listDiv = document.getElementById('checklistContent');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        const sendBtn = document.getElementById('sendBtn');
+        const displayDate = document.getElementById('displayDate');
 
-            function render() {
-                if (!listDiv) return;
-                listDiv.innerHTML = '';
-                var currentCat = '';
-                for (var index = 0; index < flatTasks.length; index++) {
-                    (function(idx) {
-                        var task = flatTasks[idx];
-                        if (task.category !== currentCat) {
-                            var catDiv = document.createElement('div');
-                            catDiv.className = 'category';
-                            catDiv.textContent = task.category;
-                            listDiv.appendChild(catDiv);
-                            currentCat = task.category;
-                        }
-                        var itemDiv = document.createElement('div');
-                        itemDiv.className = 'task-item';
-                        itemDiv.onclick = function() { toggleTask(idx); };
-                        var cb = document.createElement('div');
-                        cb.className = 'checkbox' + (task.done ? ' checked' : '');
-                        var txt = document.createElement('div');
-                        txt.className = 'task-text' + (task.done ? ' done' : '');
-                        txt.textContent = task.text;
-                        itemDiv.appendChild(cb);
-                        itemDiv.appendChild(txt);
-                        listDiv.appendChild(itemDiv);
-                    })(index);
+        if (displayDate) {
+            displayDate.textContent = new Date().toLocaleDateString('he-IL', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        function render() {
+            listDiv.innerHTML = '';
+            let currentCat = '';
+            
+            flatTasks.forEach((task, index) => {
+                if (task.category !== currentCat) {
+                    const catDiv = document.createElement('div');
+                    catDiv.className = 'category';
+                    catDiv.textContent = task.category;
+                    listDiv.appendChild(catDiv);
+                    currentCat = task.category;
                 }
 
-                var doneCount = 0;
-                for (var k = 0; k < flatTasks.length; k++) {
-                    if (flatTasks[k].done) doneCount++;
-                }
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'task-item';
+                itemDiv.onclick = () => toggleTask(index);
 
-                var percent = Math.round((doneCount / flatTasks.length) * 100);
-                if (progressBar) progressBar.style.width = percent + '%';
-                if (progressText) progressText.textContent = percent + '%';
-                if (sendBtn) sendBtn.disabled = doneCount === 0;
-            }
+                const cb = document.createElement('div');
+                cb.className = 'checkbox' + (task.done ? ' checked' : '');
 
-            window.toggleTask = function(index) {
-                flatTasks[index].done = !flatTasks[index].done;
-                render();
-            };
+                const txt = document.createElement('div');
+                txt.className = 'task-text' + (task.done ? ' done' : '');
+                txt.textContent = task.text;
 
-            window.sendReport = function() {
-                var doneTasks = [];
-                var notDoneTasks = [];
-                for (var k = 0; k < flatTasks.length; k++) {
-                    if (flatTasks[k].done) doneTasks.push(flatTasks[k]);
-                    else notDoneTasks.push(flatTasks[k]);
-                }
+                itemDiv.appendChild(cb);
+                itemDiv.appendChild(txt);
+                listDiv.appendChild(itemDiv);
+            });
 
-                var msg = "*דוח פתיחת משמרת - LUCIANA*\n";
-                msg += "תאריך: " + new Date().toLocaleDateString("he-IL") + "\n";
-                msg += "ביצוע: " + Math.round((doneTasks.length / flatTasks.length) * 100) + "%\n\n";
-                msg += "*בוצע:* ✅\n";
-                for (var m = 0; m < doneTasks.length; m++) {
-                    msg += doneTasks[m].text + "\n";
-                }
-             msg += "\n";
-                if (notDoneTasks.length > 0) {
-                    msg += "*טרם בוצע:* ❌\n";
-                    for (var n = 0; n < notDoneTasks.length; n++) {
-                        msg += notDoneTasks[n].text + "\n";
-                    }
-                }
-                window.open("https://wa.me/?text=" + encodeURIComponent(msg), "_blank");
-            };
+            const doneCount = flatTasks.filter(t => t.done).length;
+            const percent = Math.round((doneCount / flatTasks.length) * 100);
+            progressBar.style.width = percent + '%';
+            progressText.textContent = percent + '%';
+            
+            const name = document.getElementById('empName').value;
+            const role = document.getElementById('empRole').value;
+            sendBtn.disabled = !(percent === 100 && name && role);
+        }
 
+        function toggleTask(index) {
+            flatTasks[index].done = !flatTasks[index].done;
             render();
-        })();
+        }
+
+        document.getElementById('empName').oninput = render;
+        document.getElementById('empRole').onchange = render;
+
+        async function sendReport() {
+            const name = document.getElementById('empName').value;
+            const role = document.getElementById('empRole').value;
+            const issues = document.getElementById('closingIssues').value || "אין";
+            const suggestions = document.getElementById('suggestions').value || "אין";
+            const date = displayDate.textContent;
+
+            let msg = `*דוח פתיחת משמרת - לוציאנה*\n`;
+            msg += `📅 *תאריך:* ${date}\n`;
+            msg += `👤 *עובד/ת:* ${name} (${role})\n\n`;
+            msg += `✅ *צ'ק ליסט:* בוצע במלואו (100%)\n\n`;
+            msg += `⚠️ *בעיות סגירה:* ${issues}\n`;
+            msg += `💡 *הערות/הצעות:* ${suggestions}`;
+
+            try {
+                if (navigator.share) {
+                    await navigator.share({
+                        title: 'דוח פתיחה לוציאנה',
+                        text: msg
+                    });
+                } else {
+                    await navigator.clipboard.writeText(msg);
+                    alert('הדוח הועתק! עכשיו בחר את הקבוצה בוואטסאפ והדבק.');
+                    window.open('https://chat.whatsapp.com/DoAVPwuwtmPAKz9dxM50li', '_blank');
+                }
+            } catch (err) {
+                console.error('Error sharing:', err);
+            }
+        }
+
+        render();
     </script>
 </body>
 </html>
