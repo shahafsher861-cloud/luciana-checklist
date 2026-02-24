@@ -99,17 +99,6 @@
             padding: 10px 0;
             flex-grow: 1;
         }
-        .category {
-            background: #fdfbf7;
-            padding: 10px 20px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            color: #b8973e;
-            letter-spacing: 1px;
-            border-top: 1px solid #f0ede9;
-            border-bottom: 1px solid #f0ede9;
-            margin-top: 10px;
-        }
         .task-item {
             display: flex;
             align-items: center;
@@ -238,42 +227,22 @@
 
     <script>
         const tasks = [
-            {
-                category: "ניקיון וארגון",
-                items: [
-                    "ניקיון רחבת הכניסה והמארחת",
-                    "שטיפת רצפה ובדיקת ניקיון כללית",
-                    "סידור שולחנות וכיסאות",
-                    "ניקיון ובדיקת שירותים (נייר, סבון, ריח)",
-                    "ניקיון מזרקה והפעלתה"
-                ]
-            },
-            {
-                category: "עמדות שירות",
-                items: [
-                    "מילוי סכו\"ם ומפיות בעמדות",
-                    "הכנת קנקני מים ומלחיות",
-                    "בדיקת תקינות טאבלטים/מסופונים",
-                    "סידור תפריטים נקיים"
-                ]
-            },
-            {
-                category: "בר ושתייה",
-                items: [
-                    "בדיקת מלאי שתייה קלה ובירות",
-                    "ניקיון עמדת הקפה והבר",
-                    "הכנת פירות לקישוט (לימון וכו')",
-                    "מילוי קרח"
-                ]
-            }
+            "דירוגים בוולט (להזמין רוטב פיצה) ולקחת או להחזיר מהקופה ולרשום לי",
+            "לצלם דלת הזזה + עריכות + פוליש + זכוכיות בגלריה ולרשום בקבוצת אחמשים חוסרים מטבח/בר",
+            "לצלם שירותים (מגבות מלאות ונקי)",
+            "מוזיקה (פלייליסט deephouse chill / morning chill) ואור (צריך להיות על בין ערביים)",
+            "09:00 פותחת את המסעדה",
+            "בריף מסודר למלצרים של הבוקר אוזניות לכולם",
+            "מלאים עם המטבח + הבר",
+            "עריכה על הבר + כוסות יין",
+            "הדלקת מזגנים בחוץ",
+            "בודקת את המארחת על שיחות שלא נענו אם היא חזרה לכולם + שיחות פתוחות בוואצפ",
+            "לפתוח דלת הכניסה (מפתח גדול)",
+            "לפתוח דלת הזזה + ניקוי ספרי נייר על הדלת",
+            "עריכה של המקום לפי סקיצה מסודרת"
         ];
 
-        let flatTasks = [];
-        tasks.forEach(cat => {
-            cat.items.forEach(text => {
-                flatTasks.push({ category: cat.category, text: text, done: false });
-            });
-        });
+        let taskStates = tasks.map(text => ({ text: text, done: false }));
 
         const listDiv = document.getElementById('checklistContent');
         const progressBar = document.getElementById('progressBar');
@@ -292,17 +261,8 @@
 
         function render() {
             listDiv.innerHTML = '';
-            let currentCat = '';
             
-            flatTasks.forEach((task, index) => {
-                if (task.category !== currentCat) {
-                    const catDiv = document.createElement('div');
-                    catDiv.className = 'category';
-                    catDiv.textContent = task.category;
-                    listDiv.appendChild(catDiv);
-                    currentCat = task.category;
-                }
-
+            taskStates.forEach((task, index) => {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'task-item';
                 itemDiv.onclick = () => toggleTask(index);
@@ -319,8 +279,8 @@
                 listDiv.appendChild(itemDiv);
             });
 
-            const doneCount = flatTasks.filter(t => t.done).length;
-            const percent = Math.round((doneCount / flatTasks.length) * 100);
+            const doneCount = taskStates.filter(t => t.done).length;
+            const percent = Math.round((doneCount / taskStates.length) * 100);
             progressBar.style.width = percent + '%';
             progressText.textContent = percent + '%';
             
@@ -330,7 +290,7 @@
         }
 
         function toggleTask(index) {
-            flatTasks[index].done = !flatTasks[index].done;
+            taskStates[index].done = !taskStates[index].done;
             render();
         }
 
