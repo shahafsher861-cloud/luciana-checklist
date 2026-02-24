@@ -506,8 +506,12 @@
         }
 
         const msg = lines.join("\n");
-                navigator.clipboard.writeText(msg).catch(() => {});
-                window.open("https://chat.whatsapp.com/DoAVPwuwtmPAKz9dxM50li", "_blank");
+                        if (navigator.share) {
+          navigator.share({ text: msg });
+        } else {
+          navigator.clipboard.writeText(msg).catch(() => {});
+          alert('ההודעה הועתקה — הדבק בקבוצה');
+        }
       });
     </script>
   </body>
