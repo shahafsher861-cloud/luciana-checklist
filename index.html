@@ -506,11 +506,7 @@
         }
 
         const msg = lines.join("\n");
-                        if (navigator.share) {
-          navigator.share({ text: msg });
-        } else {
-          navigator.clipboard.writeText(msg).catch(() => {});
-          alert('ההודעה הועתקה — הדבק בקבוצה');
+                                window.open("https://wa.me/?text=" + encodeURIComponent(msg), "_blank");
         }
       });
     </script>
