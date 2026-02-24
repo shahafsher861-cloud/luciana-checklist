@@ -41,15 +41,18 @@
                 <span>התקדמות ביצוע</span>
                 <span id="progressText">0%</span>
             </div>
-            <div class="progress-bg"><div id="progressBar" class="progress-fill"></div></div>
+            <div class="progress-bg">
+                <div id="progressBar" class="progress-fill"></div>
+            </div>
         </div>
         <div id="checklistContent" class="checklist"></div>
         <div class="footer">
-            <button id="sendBtn" class="btn-send" onclick="sendReport()">
+            <button id="sendBtn" class="btn-send" onclick="sendReport()" disabled>
                 <span>שלח דוח פתיחה לווצאפ</span>
             </button>
         </div>
     </div>
+
     <script>
         (function() {
             var tasks = [
@@ -57,11 +60,15 @@
                 { category: "עמדות שירות", items: ["מילוי סכו\"ם ומפיות בעמדות", "הכנת קנקני מים ומלחיות", "בדיקת תקינות טאבלטים/מסופונים", "סידור תפריטים נקיים"] },
                 { category: "בר ושתייה", items: ["בדיקת מלאי שתייה קלה ובירות", "ניקיון עמדת הקפה והבר", "הכנת פירות לקישוט (לימון וכו')", "מילוי קרח"] }
             ];
-            
+
             var flatTasks = [];
             for (var i = 0; i < tasks.length; i++) {
                 for (var j = 0; j < tasks[i].items.length; j++) {
-                    flatTasks.push({ category: tasks[i].category, text: tasks[i].items[j], done: false });
+                    flatTasks.push({
+                        category: tasks[i].category,
+                        text: tasks[i].items[j],
+                        done: false
+                    });
                 }
             }
 
@@ -71,7 +78,9 @@
             var sendBtn = document.getElementById('sendBtn');
             var displayDate = document.getElementById('displayDate');
 
-            if (displayDate) displayDate.textContent = new Date().toLocaleDateString('he-IL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            if (displayDate) {
+                displayDate.textContent = new Date().toLocaleDateString('he-IL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            }
 
             function render() {
                 if (!listDiv) return;
@@ -90,21 +99,22 @@
                         var itemDiv = document.createElement('div');
                         itemDiv.className = 'task-item';
                         itemDiv.onclick = function() { toggleTask(idx); };
-                        
                         var cb = document.createElement('div');
                         cb.className = 'checkbox' + (task.done ? ' checked' : '');
-                        
                         var txt = document.createElement('div');
                         txt.className = 'task-text' + (task.done ? ' done' : '');
                         txt.textContent = task.text;
-                        
                         itemDiv.appendChild(cb);
                         itemDiv.appendChild(txt);
                         listDiv.appendChild(itemDiv);
                     })(index);
                 }
+
                 var doneCount = 0;
-                for (var k = 0; k < flatTasks.length; k++) { if (flatTasks[k].done) doneCount++; }
+                for (var k = 0; k < flatTasks.length; k++) {
+                    if (flatTasks[k].done) doneCount++;
+                }
+
                 var percent = Math.round((doneCount / flatTasks.length) * 100);
                 if (progressBar) progressBar.style.width = percent + '%';
                 if (progressText) progressText.textContent = percent + '%';
@@ -123,17 +133,22 @@
                     if (flatTasks[k].done) doneTasks.push(flatTasks[k]);
                     else notDoneTasks.push(flatTasks[k]);
                 }
-                var msg = '*דוח פתיחת משמרת - LUCIANA*\n';
-                msg += 'תאריך: ' + new Date().toLocaleDateString('he-IL') + '\n';
-                msg += 'ביצוע: ' + Math.round((doneTasks.length / flatTasks.length) * 100) + '%\n\n';
-                msg += '*בוצע:* ✅\n';
-                for (var m = 0; m < doneTasks.length; m++) { msg += doneTasks[m].text + '\n'; }
-                msg += '\n';
-                if (notDoneTasks.length > 0) {
-                    msg += '*טרם בוצע:* ❌\n';
-                    for (var n = 0; n < notDoneTasks.length; n++) { msg += notDoneTasks[n].text + '\n'; }
+
+                var msg = "*דוח פתיחת משמרת - LUCIANA*\n";
+                msg += "תאריך: " + new Date().toLocaleDateString("he-IL") + "\n";
+                msg += "ביצוע: " + Math.round((doneTasks.length / flatTasks.length) * 100) + "%\n\n";
+                msg += "*בוצע:* ✅\n";
+                for (var m = 0; m < doneTasks.length; m++) {
+                    msg += doneTasks[m].text + "\n";
                 }
-                window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+             msg += "\n";
+                if (notDoneTasks.length > 0) {
+                    msg += "*טרם בוצע:* ❌\n";
+                    for (var n = 0; n < notDoneTasks.length; n++) {
+                        msg += notDoneTasks[n].text + "\n";
+                    }
+                }
+                window.open("https://wa.me/?text=" + encodeURIComponent(msg), "_blank");
             };
 
             render();
