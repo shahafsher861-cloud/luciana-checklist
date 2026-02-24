@@ -76,7 +76,6 @@
         transition: width 0.2s ease;
       }
 
-
       .page {
         max-width: 480px;
         margin: 0 auto;
@@ -106,7 +105,6 @@
         margin: 20px 0;
       }
 
-
       .field {
         width: 100%;
         box-sizing: border-box;
@@ -128,7 +126,6 @@
         padding-top: 8px;
         padding-bottom: 8px;
       }
-
 
       .task-row {
         border-bottom: 1px solid #f2ede6;
@@ -163,7 +160,6 @@
         text-decoration: line-through;
       }
 
-
       .radio-row {
         display: flex;
         gap: 8px;
@@ -185,14 +181,12 @@
         background: #fdf8ef;
       }
 
-
       textarea.field {
         height: 60px;
         resize: none;
         line-height: 1.6;
         margin-bottom: 0;
       }
-
 
       .btn-main {
         width: 100%;
@@ -244,7 +238,6 @@
       </div>
     </div>
 
-
     <div class="page">
       <!-- STAFF -->
       <div class="section">
@@ -262,9 +255,7 @@
         </select>
       </div>
 
-
       <div class="divider"></div>
-
 
       <!-- OPENING CHECKLIST -->
       <div class="section">
@@ -273,13 +264,10 @@
           <span class="section-right"><span id="doneCount">0</span> / <span id="totalCount">0</span></span>
         </div>
 
-
         <div id="tasksContainer"></div>
       </div>
 
-
       <div class="divider"></div>
-
 
       <!-- סגירה של אתמול -->
       <div class="section">
@@ -296,9 +284,7 @@
         <textarea id="closingDetail" class="field" placeholder="תארי מה קרה..." style="display:none;"></textarea>
       </div>
 
-
       <div class="divider"></div>
-
 
       <!-- הצעות לשיפור -->
       <div class="section">
@@ -308,9 +294,7 @@
         <textarea id="suggestions" class="field" placeholder="רעיון או משהו שיכול לעבוד טוב יותר..."></textarea>
       </div>
 
-
       <div class="divider"></div>
-
 
       <!-- NOTES -->
       <div class="section">
@@ -320,9 +304,7 @@
         <textarea id="notes" class="field" placeholder="הערות, תקלות, חריגות..."></textarea>
       </div>
 
-
       <div class="divider"></div>
-
 
       <!-- SEND BUTTON -->
       <button class="btn-main" id="sendBtn">
@@ -333,13 +315,11 @@
       </div>
     </div>
 
-
     <script>
       // -----------------------
       // CONFIG
       // -----------------------
       const PHONE = "972558855688";
-
 
       const TASKS = [
         "דירוגים בוולט (להזמין רוטב פיצה) ולקחת או להחזיר מהקופה ולרשום לי",
@@ -357,7 +337,6 @@
         "עריכה של המקום לפי סקיצה מסודרת",
       ];
 
-
       // -----------------------
       // DATE + DAY
       // -----------------------
@@ -368,7 +347,6 @@
         document.getElementById("dayLabel").textContent = "יום " + days[now.getDay()];
       })();
 
-
       // -----------------------
       // TASKS RENDER
       // -----------------------
@@ -378,9 +356,7 @@
       const progressPctEl = document.getElementById("progressPct");
       const progressBar = document.getElementById("progressBar");
 
-
       const checks = {};
-
 
       function renderTasks() {
         totalCountEl.textContent = TASKS.length;
@@ -389,27 +365,22 @@
           const row = document.createElement("div");
           row.className = "task-row";
 
-
           const main = document.createElement("div");
           main.className = "task-main";
-
 
           const box = document.createElement("div");
           box.className = "check-box";
           box.dataset.index = index;
-
 
           const span = document.createElement("span");
           span.className = "task-text";
           span.textContent = text;
           span.dataset.index = index;
 
-
           main.appendChild(box);
           main.appendChild(span);
           row.appendChild(main);
           tasksContainer.appendChild(row);
-
 
           main.addEventListener("click", () => {
             const i = index;
@@ -418,10 +389,8 @@
           });
         });
 
-
         updateTasksUI();
       }
-
 
       function updateTasksUI() {
         let done = 0;
@@ -429,13 +398,11 @@
           if (checks[index]) done++;
         });
 
-
         doneCountEl.textContent = done;
         const pct = Math.round((done / TASKS.length) * 100);
         progressPctEl.textContent = pct + "%";
         progressBar.style.width = pct + "%";
         progressBar.style.background = pct === 100 ? "#4a7c59" : "#b8973e";
-
 
         // Update each row
         const boxes = document.querySelectorAll(".check-box");
@@ -453,9 +420,7 @@
         });
       }
 
-
       renderTasks();
-
 
       // -----------------------
       // CLOSING ISSUE RADIO
@@ -465,7 +430,6 @@
       const closingYes = document.getElementById("closingYes");
       const closingDetail = document.getElementById("closingDetail");
 
-
       function setClosingIssue(value) {
         closingIssue = value;
         closingNone.classList.toggle("active", value === "none");
@@ -473,10 +437,8 @@
         closingDetail.style.display = value === "yes" ? "block" : "none";
       }
 
-
       closingNone.addEventListener("click", () => setClosingIssue("none"));
       closingYes.addEventListener("click", () => setClosingIssue("yes"));
-
 
       // -----------------------
       // SEND TO WHATSAPP
@@ -488,7 +450,6 @@
         const notes = document.getElementById("notes").value.trim();
         const closingText = closingDetail.value.trim();
 
-
         if (!name) {
           alert("יש להזין שם");
           return;
@@ -498,11 +459,9 @@
           return;
         }
 
-
         const now = new Date();
         const time = now.toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit" });
         const date = now.toLocaleDateString("he-IL");
-
 
         let done = 0;
         const notDoneList = [];
@@ -514,12 +473,10 @@
           }
         });
 
-
         const lines = [];
         lines.push("✅ דיווח פתיחה — Luciana");
         lines.push(name + " · " + role + " · " + date + " " + time);
         lines.push("");
-
 
         if (done === TASKS.length) {
           lines.push("כל " + TASKS.length + " המשימות הושלמו ✓");
@@ -527,10 +484,8 @@
           lines.push(done + "/" + TASKS.length + " משימות הושלמו");
           lines.push("");
           lines.push("לא בוצע:");
-          lines.push(notDoneList.join("
-"));
+          lines.push(notDoneList.join("\n"));
         }
-
 
         if (closingIssue === "yes" && closingText) {
           lines.push("");
@@ -538,13 +493,11 @@
           lines.push(closingText);
         }
 
-
         if (suggestions) {
           lines.push("");
           lines.push("💡 הצעות:");
           lines.push(suggestions);
         }
-
 
         if (notes) {
           lines.push("");
@@ -552,10 +505,8 @@
           lines.push(notes);
         }
 
-
-        const msg = lines.join("
-");
-        const url = "https://wa.me/?text=" + encodeURIComponent(msg);         window.open(url, "_blank");
+        const msg = lines.join("\n");
+        const url = "https://wa.me/?text=" + encodeURIComponent(msg);        window.open(url, "_blank");
       });
     </script>
   </body>
