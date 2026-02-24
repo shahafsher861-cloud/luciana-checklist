@@ -51,53 +51,93 @@
         </div>
     </div>
     <script>
-        const tasks = [
-            { category: "ניקיון וארגון", items: ["ניקיון רחבת הכניסה והמארחת", "שטיפת רצפה ובדיקת ניקיון כללית", "סידור שולחנות וכיסאות", "ניקיון ובדיקת שירותים (נייר, סבון, ריח)"] },
-            { category: "עמדות שירות", items: ["מילוי סכו\"ם ומפיות בעמדות", "הכנת קנקני מים ומלחיות", "בדיקת תקינות טאבלטים/מסופונים", "סידור תפריטים נקיים"] },
-            { category: "בר ושתייה", items: ["בדיקת מלאי שתייה קלה ובירות", "ניקיון עמדת הקפה והבר", "הכנת פירות לקישוט (לימון וכו')", "מילוי קרח"] }
-        ];
-        const flatTasks = tasks.flatMap(c => c.items.map(t => ({ category: c.category, text: t, done: false })));
-        const listDiv = document.getElementById('checklistContent');
-        const progressBar = document.getElementById('progressBar');
-        const progressText = document.getElementById('progressText');
-        const sendBtn = document.getElementById('sendBtn');
-        document.getElementById('displayDate').textContent = new Date().toLocaleDateString('he-IL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-        
-        function render() {
-            listDiv.innerHTML = '';
-            let currentCat = '';
-            flatTasks.forEach((task, index) => {
-                if (task.category !== currentCat) {
-                    const catDiv = document.createElement('div');
-                    catDiv.className = 'category';
-                    catDiv.textContent = task.category;
-                    listDiv.appendChild(catDiv);
-                    currentCat = task.category;
+        (function() {
+            var tasks = [
+                { category: "ניקיון וארגון", items: ["ניקיון רחבת הכניסה והמארחת", "שטיפת רצפה ובדיקת ניקיון כללית", "סידור שולחנות וכיסאות", "ניקיון ובדיקת שירותים (נייר, סבון, ריח)"] },
+                { category: "עמדות שירות", items: ["מילוי סכו\"ם ומפיות בעמדות", "הכנת קנקני מים ומלחיות", "בדיקת תקינות טאבלטים/מסופונים", "סידור תפריטים נקיים"] },
+                { category: "בר ושתייה", items: ["בדיקת מלאי שתייה קלה ובירות", "ניקיון עמדת הקפה והבר", "הכנת פירות לקישוט (לימון וכו')", "מילוי קרח"] }
+            ];
+            
+            var flatTasks = [];
+            for (var i = 0; i < tasks.length; i++) {
+                for (var j = 0; j < tasks[i].items.length; j++) {
+                    flatTasks.push({ category: tasks[i].category, text: tasks[i].items[j], done: false });
                 }
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'task-item';
-                itemDiv.onclick = () => toggleTask(index);
-                itemDiv.innerHTML = `<div class="checkbox ${task.done ? 'checked' : ''}"></div><div class="task-text ${task.done ? 'done' : ''}">${task.text}</div>`;
-                listDiv.appendChild(itemDiv);
-            });
-            const doneCount = flatTasks.filter(t => t.done).length;
-            const percent = Math.round((doneCount / flatTasks.length) * 100);
-            progressBar.style.width = percent + '%';
-            progressText.textContent = percent + '%';
-            sendBtn.disabled = doneCount === 0;
-        }
-        function toggleTask(index) { flatTasks[index].done = !flatTasks[index].done; render(); }
-        function sendReport() {
-            const doneTasks = flatTasks.filter(t => t.done);
-            const notDoneTasks = flatTasks.filter(t => !t.done);
-            let msg = '*דוח פתיחת משמרת - LUCIANA*\n';
-            msg += 'תאריך: ' + new Date().toLocaleDateString('he-IL') + '\n';
-            msg += 'ביצוע: ' + Math.round((doneTasks.length / flatTasks.length) * 100) + '%\n\n';
-            msg += '*בוצע:* ✅\n' + doneTasks.map(t => t.text).join('\n') + '\n\n';
-            if (notDoneTasks.length > 0) msg += '*טרם בוצע:* ❌\n' + notDoneTasks.map(t => t.text).join('\n');
-            window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
-        }
-        render();
+            }
+
+            var listDiv = document.getElementById('checklistContent');
+            var progressBar = document.getElementById('progressBar');
+            var progressText = document.getElementById('progressText');
+            var sendBtn = document.getElementById('sendBtn');
+            var displayDate = document.getElementById('displayDate');
+
+            if (displayDate) displayDate.textContent = new Date().toLocaleDateString('he-IL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+            function render() {
+                if (!listDiv) return;
+                listDiv.innerHTML = '';
+                var currentCat = '';
+                for (var index = 0; index < flatTasks.length; index++) {
+                    (function(idx) {
+                        var task = flatTasks[idx];
+                        if (task.category !== currentCat) {
+                            var catDiv = document.createElement('div');
+                            catDiv.className = 'category';
+                            catDiv.textContent = task.category;
+                            listDiv.appendChild(catDiv);
+                            currentCat = task.category;
+                        }
+                        var itemDiv = document.createElement('div');
+                        itemDiv.className = 'task-item';
+                        itemDiv.onclick = function() { toggleTask(idx); };
+                        
+                        var cb = document.createElement('div');
+                        cb.className = 'checkbox' + (task.done ? ' checked' : '');
+                        
+                        var txt = document.createElement('div');
+                        txt.className = 'task-text' + (task.done ? ' done' : '');
+                        txt.textContent = task.text;
+                        
+                        itemDiv.appendChild(cb);
+                        itemDiv.appendChild(txt);
+                        listDiv.appendChild(itemDiv);
+                    })(index);
+                }
+                var doneCount = 0;
+                for (var k = 0; k < flatTasks.length; k++) { if (flatTasks[k].done) doneCount++; }
+                var percent = Math.round((doneCount / flatTasks.length) * 100);
+                if (progressBar) progressBar.style.width = percent + '%';
+                if (progressText) progressText.textContent = percent + '%';
+                if (sendBtn) sendBtn.disabled = doneCount === 0;
+            }
+
+            window.toggleTask = function(index) {
+                flatTasks[index].done = !flatTasks[index].done;
+                render();
+            };
+
+            window.sendReport = function() {
+                var doneTasks = [];
+                var notDoneTasks = [];
+                for (var k = 0; k < flatTasks.length; k++) {
+                    if (flatTasks[k].done) doneTasks.push(flatTasks[k]);
+                    else notDoneTasks.push(flatTasks[k]);
+                }
+                var msg = '*דוח פתיחת משמרת - LUCIANA*\n';
+                msg += 'תאריך: ' + new Date().toLocaleDateString('he-IL') + '\n';
+                msg += 'ביצוע: ' + Math.round((doneTasks.length / flatTasks.length) * 100) + '%\n\n';
+                msg += '*בוצע:* ✅\n';
+                for (var m = 0; m < doneTasks.length; m++) { msg += doneTasks[m].text + '\n'; }
+                msg += '\n';
+                if (notDoneTasks.length > 0) {
+                    msg += '*טרם בוצע:* ❌\n';
+                    for (var n = 0; n < notDoneTasks.length; n++) { msg += notDoneTasks[n].text + '\n'; }
+                }
+                window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+            };
+
+            render();
+        })();
     </script>
 </body>
 </html>
