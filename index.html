@@ -506,8 +506,8 @@
         }
 
         const msg = lines.join("\n");
-        const url = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
-        window.open(url, "_blank");
+                navigator.clipboard.writeText(msg).catch(() => {});
+                window.open("https://chat.whatsapp.com/DoAVPwuwtmPAKz9dxM50li", "_blank");
       });
     </script>
   </body>
